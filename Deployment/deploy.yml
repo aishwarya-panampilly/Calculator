@@ -1,15 +1,28 @@
-- name: Pull Docker Image of Calculator
+- name: Deploy Docker Container for Calculator
   hosts: all
   vars:
     ansible_python_interpreter: /usr/bin/python3
   tasks:
-    - name: Pull image
-      docker_image:
-        name: aishjp/calculator:latest
-        source: pull
     - name: Start Docker service
       service:
         name: docker
         state: started
-    - name: Running container
-      shell: docker run -it -d --name Calculator aishjp/calculator
+      become: true
+
+    - name: Pull Docker image
+      community.docker.docker_image:
+        name: aishjp/calculator:latest
+        source: pull
+
+    - name: Remove existing container (if any)
+      community.docker.docker_container:
+        name: Calculator
+        state: absent
+
+    - name: Run Docker container
+      community.docker.docker_container:
+        name: Calculator
+        image: aishjp/calculator:latest
+        state: started
+        restart_policy: always
+        detach: true
