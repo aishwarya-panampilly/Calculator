@@ -72,8 +72,9 @@ public class Main {
 
                 case 5:
                     System.out.println("Exiting Calculator. Goodbye!");
+                    reader.close();
                     System.exit(0);
-                    break;
+                    return;
 
                 default:
                     System.out.println("Invalid choice. Please choose a valid option.");
