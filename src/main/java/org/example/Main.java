@@ -1,76 +1,80 @@
 package org.example;
 
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         while (true) {
-
             System.out.println("Scientific Calculator Menu");
-            System.out.flush();
             System.out.println("1. Square Root (√x)");
-            System.out.flush();
             System.out.println("2. Factorial (x!)");
-            System.out.flush();
             System.out.println("3. Natural Logarithm (ln(x))");
-            System.out.flush();
             System.out.println("4. Power Function (x^b)");
-            System.out.flush();
             System.out.println("5. Exit");
-            System.out.flush();
             System.out.print("Enter your choice: ");
             System.out.flush();
-            int choice = scanner.nextInt();
+
+            int choice;
+            try {
+                choice = Integer.parseInt(reader.readLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
+
             System.out.println();
 
             switch (choice) {
                 case 1:
-
                     System.out.print("Enter a number (x) to calculate √x: ");
-                    double x = scanner.nextDouble();
+                    System.out.flush();
+                    double x = Double.parseDouble(reader.readLine().trim());
                     if (x < 0) {
                         System.out.println("Cannot calculate the square root of a negative number.");
                     } else {
                         System.out.println("Square root of " + x + " = " + Math.sqrt(x));
                     }
                     break;
-                case 2:
 
+                case 2:
                     System.out.print("Enter a non-negative integer for factorial (x!): ");
-                    int n = scanner.nextInt();
+                    System.out.flush();
+                    int n = Integer.parseInt(reader.readLine().trim());
                     if (n < 0) {
                         System.out.println("Factorial is not defined for negative numbers.");
                     } else {
                         System.out.println(n + "! = " + factorial(n));
                     }
                     break;
-                case 3:
 
+                case 3:
                     System.out.print("Enter a positive number (x) to calculate ln(x): ");
-                    double num = scanner.nextDouble();
+                    System.out.flush();
+                    double num = Double.parseDouble(reader.readLine().trim());
                     if (num <= 0) {
                         System.out.println("Natural logarithm is defined only for positive numbers.");
                     } else {
                         System.out.println("ln(" + num + ") = " + Math.log(num));
                     }
                     break;
-                case 4:
 
+                case 4:
                     System.out.print("Enter the base (x): ");
-                    double base = scanner.nextDouble();
+                    System.out.flush();
+                    double base = Double.parseDouble(reader.readLine().trim());
                     System.out.print("Enter the exponent (b): ");
-                    double exponent = scanner.nextDouble();
+                    System.out.flush();
+                    double exponent = Double.parseDouble(reader.readLine().trim());
                     System.out.println(base + " raised to the power " + exponent + " = " + Math.pow(base, exponent));
                     break;
-                case 5:
 
+                case 5:
                     System.out.println("Exiting Calculator. Goodbye!");
-                    scanner.close();
                     System.exit(0);
                     break;
+
                 default:
                     System.out.println("Invalid choice. Please choose a valid option.");
             }
