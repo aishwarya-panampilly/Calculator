@@ -13,6 +13,7 @@ public class Main {
             System.out.println("3. Natural Logarithm (ln(x))");
             System.out.println("4. Power Function (x^b)");
             System.out.println("5. Exit");
+            System.out.println("Demo");
             System.out.print("Enter your choice: ");
             System.out.flush();
 
